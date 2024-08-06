@@ -1,12 +1,22 @@
+'use client';
+
 import React from 'react';
+import { useFormStatus } from 'react-dom';
 
 interface FormButtonProps {
-  loading: boolean;
   text: string;
 }
 
-function FormButton({ loading, text }: FormButtonProps) {
-  return <button disabled={loading}>{loading ? '로딩중...' : text}</button>;
+function FormButton({ text }: FormButtonProps) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      className="bg-gray-200 p-4 border-2 w-full rounded-full"
+      disabled={pending}
+    >
+      {pending ? 'Loading...' : text}
+    </button>
+  );
 }
 
 export default FormButton;

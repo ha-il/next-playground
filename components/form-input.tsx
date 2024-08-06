@@ -16,15 +16,20 @@ function FormInput({
   name,
 }: FormInputProps) {
   return (
-    <div>
+    <div className="mb-4">
       <input
         name={name}
         type={type}
         placeholder={placeholder}
         required={required}
+        className={`p-4 border-2 bg-white ${
+          errors.length > 0 ? 'border-red-400' : 'border-gray-200'
+        }  rounded-full focus:ring-2 ring-gray-300 ring-offset-1 outline-none`}
       />
       {errors.map((error, index) => (
-        <span key={index}>{error}</span>
+        <div className="text-red-400 mt-2" key={index}>
+          {error}
+        </div>
       ))}
     </div>
   );
