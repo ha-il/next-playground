@@ -1,44 +1,43 @@
 'use client';
 
-import FormButton from '@/components/form-button';
-import FormInput from '@/components/form-input';
 import React from 'react';
 import { useFormState } from 'react-dom';
 import { handleFormSubmit } from './actions';
+import Button from '@/components/button';
+import Input from '@/components/input';
 import FireIcon from '@/components/fire-icon';
 import SuceesMessage from '@/components/sucees-message';
 
 export default function Home() {
   const [state, formAction] = useFormState(handleFormSubmit, {} as any);
-  console.log(state);
 
   return (
     <div className="h-screen gap-4 flex flex-col items-center justify-center">
       <FireIcon />
-      <form action={formAction}>
-        <FormInput
+      <form action={formAction} className="min-w-96">
+        <Input
           name="email"
           type="email"
           placeholder="이메일"
           required
-          errors={[]}
+          errors={state?.fieldErrors?.email}
         />
-        <FormInput
+        <Input
           name="username"
           type="text"
           placeholder="아이디"
           required
-          errors={[]}
+          errors={state?.fieldErrors?.username}
         />
-        <FormInput
+        <Input
           name="password"
           type="password"
           placeholder="비밀번호"
           required
-          errors={state?.errors ?? []}
+          errors={state?.fieldErrors?.password}
         />
-        <FormButton text="Log in" />
-        {state?.result && <SuceesMessage />}
+        <Button text="Log in" />
+        {state.success && <SuceesMessage />}
       </form>
     </div>
   );
